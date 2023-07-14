@@ -7,7 +7,7 @@ import numpy as np
 import copy
 import random
 
-from Encodings import abstract_encoding as enc
+from Encodings import Abstract_Encoding as enc
 import Tree as tree_structure
 from NeuralNetwork import NEAT_NN
 from enum import Enum
