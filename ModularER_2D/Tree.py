@@ -22,7 +22,7 @@ def module_dist(m1,m2):
 Tree blueprint
 '''
 class Tree:
-	def __init__(self, moduleList):
+	def __init__(self, moduleList, controller = None):
 		self.nodes = []
 		self.moduleList = moduleList
 	def getNodes(self):
