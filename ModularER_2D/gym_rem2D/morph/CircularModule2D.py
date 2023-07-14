@@ -64,7 +64,7 @@ class Circular2D(abstract_module.Module):
 			self.angle = self.MAX_ANGLE
 		elif self.angle < self.MIN_ANGLE:
 			self.angle = self.MIN_ANGLE
-	def mutate(self, MORPH_MUTATION_RATE,MUTATION_RATE,MUT_SIGMA):
+	def mutate(self, MORPH_MUTATION_RATE,MUT_SIGMA):
 		"""
 		To mutate the shape and controller stored in the modules. 
 		"""
@@ -74,6 +74,8 @@ class Circular2D(abstract_module.Module):
 		if random.uniform(0,1) < MORPH_MUTATION_RATE:
 			self.angle = random.gauss(self.angle,MUT_SIGMA)
 		self.limitWH()
+
+	def mutate_controller(self,MUTATION_RATE,MUT_SIGMA):
 		if self.controller is not None:
 			self.controller.mutate(MUTATION_RATE,MUT_SIGMA, self.angle)
 	

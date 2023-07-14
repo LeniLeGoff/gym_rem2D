@@ -33,6 +33,7 @@ class C_Module:
 		self.parentConnectionSite = None
 		self.handled = False
 
+
 class Rule:
 	"""
 	This Rule object is similar to rewriting rules in L-Systems
@@ -74,7 +75,7 @@ class Rule:
 		#	mod.mutate(0.5,0.5,0.5)
 
 	def mutate(self, MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA):
-		self.moduleList[self.moduleRef].mutate(MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA)
+		self.moduleList[self.moduleRef].mutate(MORPH_MUTATIONRATE,MUT_SIGMA)
 		if (random.uniform(0.0,1.0) < MORPH_MUTATIONRATE):
 			# add child to rule
 			if (self.n_children < self.max_children-1):
@@ -172,7 +173,6 @@ class LSystem(enc.Encoding):
 		for i in range(self.treeDepth): # number of times iterated over the L-System
 			index = self.iterate(base, index,0)  
 		#print(axiom)
-
 		# create tree
 		# transform the string into a usable tree structure
 		tree = tree_structure.Tree(self.moduleList)
@@ -184,7 +184,7 @@ class LSystem(enc.Encoding):
 	def mutate(self, MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA):
 		# mutate modules
 		for m in self.moduleList:
-			m.mutate(MORPH_MUTATIONRATE,MUTATION_RATE, MUT_SIGMA)
+			m.mutate(MORPH_MUTATIONRATE,MUT_SIGMA)
 		# mutate rules
 		for r in self.rules:
 			r.mutate(MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA)

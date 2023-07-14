@@ -37,7 +37,8 @@ class C_Module:
 		self.handled = False
 		self.module = copy.deepcopy(module)
 		self.controller = None
-		
+
+
 
 class NN_enc(enc.Encoding):
 	'''
@@ -48,7 +49,7 @@ class NN_enc(enc.Encoding):
 	rules that creates a neural network. The phenotype is 
 	the network that is actually created from these rules. 
 	''' 
-	def __init__(self, modulelist, type,config=None):
+	def __init__(self, modulelist,config=None):
 		self.moduleList = copy.deepcopy(modulelist)			
 		self.outputs = []
 		# number of inputs # TODO: Not hardcode it like this.
@@ -64,24 +65,17 @@ class NN_enc(enc.Encoding):
 		for i in range(n_outputs):
 			self.outputs.append(0)
 		self.inputs = []
-		if (type is "CPPN"):
-			# neural network genotype
-			self.networkType = NETWORK_TYPE.CPPN
-			if config is not None:
-				self.nn_g = NEAT_NN.CPPN(n_inputs, n_outputs,t_config=config)
-			else:
-				self.nn_g = NEAT_NN.CPPN(n_inputs, n_outputs)
-			# neural network phenotype
-		elif(type is "CE"):
-			self.networkType = NETWORK_TYPE.CE
-			if config is not None:
-				self.nn_g = Cellular_Encoding.CE(config = config)
-			else:
-				self.nn_g = Cellular_Encoding.CE()
-			self.nn_g.mutate(0.5,0.5,0.5)
-			self.nn_g.create()
+
+		# neural network genotype
+		self.networkType = NETWORK_TYPE.CPPN
+		if config is not None:
+			self.nn_g = NEAT_NN.CPPN(n_inputs, n_outputs,t_config=config)
+		else:
+			self.nn_g = NEAT_NN.CPPN(n_inputs, n_outputs)
+		
+
 		for mod in self.moduleList:
-			mod.mutate(0.5,0.5,0.5)
+			mod.mutate(0.5,0.5)
 	
 	def update(self, index, par_symb, depth):
 		# query for every possible connection site
@@ -145,16 +139,15 @@ class NN_enc(enc.Encoding):
 		return index, new_symbols
 
 
-	def mutate(self, MORPH_MUTATION_RATE,MUTATION_RATE,MUT_SIGMA,TREE_DEPTH=None):
-		if (self.networkType == NETWORK_TYPE.CPPN):
-			self.nn_g.mutate()
-			self.nn_p = self.nn_g.getPhenotype()
-		elif (self.networkType == NETWORK_TYPE.CE):
-			self.nn_g.mutate(MORPH_MUTATION_RATE,MUTATION_RATE,MUT_SIGMA)
-			self.nn_g.create()
+	def mutate(self, MORPH_MUTATION_RATE,MUT_SIGMA,TREE_DEPTH=None):
+		self.nn_g.mutate()
+		self.nn_p = self.nn_g.getPhenotype()
 		for mod in self.moduleList:
-			mod.mutate(MORPH_MUTATION_RATE,MUTATION_RATE,MUT_SIGMA)
+			mod.mutate(MORPH_MUTATION_RATE,MUT_SIGMA)
 	
+	def controller_genome(self):
+		return [[mod.controller.amplitude,mod.controller.frequency,mod.controller.phase,mod.controller.offset] for mod in self.moduleList]
+			
 		
 		#print("Mutation rate is not implemented yet")
 	def iterate(self,current_symbol,index, depth):

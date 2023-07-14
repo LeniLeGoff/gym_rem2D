@@ -44,24 +44,24 @@ class CPPN:
 		self.phenotype = self.getPhenotype()
 		if (t_config is not None):
 			# topological parameters
-			self.config.genome_config.conn_add_prob = float(t_config['ea']['morphmutation_prob'])
-			self.config.genome_config.conn_delete_prob = float(t_config['ea']['morphmutation_prob'])
-			self.config.genome_config.node_add_prob = float(t_config['ea']['morphmutation_prob'])
-			self.config.genome_config.node_delete_prob = float(t_config['ea']['morphmutation_prob'])
+			self.config.genome_config.conn_add_prob = float(t_config['neat']['conn_add_prob'])
+			self.config.genome_config.conn_delete_prob = float(t_config['neat']['conn_delete_prob'])
+			self.config.genome_config.node_add_prob = float(t_config['neat']['node_add_prob'])
+			self.config.genome_config.node_delete_prob = float(t_config['neat']['node_delete_prob'])
 			
-			self.config.genome_config.activation_mutate_rate = float(t_config['ea']['mutation_prob'])
-			self.config.genome_config.weight_mutate_power = float(t_config['ea']['mutation_sigma'])
-			self.config.genome_config.weight_replace_rate = float(t_config['ea']['mutation_prob'])
-			self.config.genome_config.weight_mutate_rate = float(t_config['ea']['mutation_prob'])
+			self.config.genome_config.activation_mutate_rate = float(t_config['controller']['mut_rate'])
+			self.config.genome_config.weight_mutate_power = float(t_config['controller']['sigma'])
+			self.config.genome_config.weight_replace_rate = float(t_config['controller']['mut_rate'])
+			self.config.genome_config.weight_mutate_rate = float(t_config['controller']['mut_rate'])
 			# bias 			
-			self.config.genome_config.bias_replace_rate = float(t_config['ea']['morphmutation_prob'])
-			self.config.genome_config.bias_mutate_rate = float(t_config['ea']['mutation_prob'])
-			self.config.genome_config.bias_mutate_power = float(t_config['ea']['mutation_sigma'])
+			self.config.genome_config.bias_replace_rate = float(t_config['neat']['bias_replace_rate'])
+			self.config.genome_config.bias_mutate_rate = float(t_config['controller']['mut_rate'])
+			self.config.genome_config.bias_mutate_power = float(t_config['controller']['sigma'])
 
 			# response
-			self.config.genome_config.response_replace_rate = float(t_config['ea']['morphmutation_prob'])
-			self.config.genome_config.response_mutate_rate = float(t_config['ea']['mutation_prob'])
-			self.config.genome_config.response_mutate_power = float(t_config['ea']['mutation_sigma'])
+			self.config.genome_config.response_replace_rate = float(t_config['neat']['response_replace_rate'])
+			self.config.genome_config.response_mutate_rate = float(t_config['controller']['mut_rate'])
+			self.config.genome_config.response_mutate_power = float(t_config['controller']['sigma'])
 
 	def update(self,input):
 		return(self.phenotype.activate(input))

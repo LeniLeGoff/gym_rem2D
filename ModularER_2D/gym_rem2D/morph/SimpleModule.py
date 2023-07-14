@@ -68,7 +68,7 @@ class Standard2D(abstract_module.Module):
 		elif self.angle < self.MIN_ANGLE:
 			self.angle = self.MIN_ANGLE
 	
-	def mutate(self, MORPH_MUTATION_RATE,MUTATION_RATE,MUT_SIGMA):
+	def mutate(self, MORPH_MUTATION_RATE,MUT_SIGMA):
 		"""
 		To mutate the shape and controller stored in the modules. 
 		"""
@@ -82,7 +82,9 @@ class Standard2D(abstract_module.Module):
 			self.angle = random.gauss(self.angle,MUT_SIGMA) * math.pi
 		# function below ensures values are not out of bound
 		self.limitWH()
-		if self.controller:
+
+	def mutate_controller(self,MUTATION_RATE,MUT_SIGMA):
+		if self.controller is not None:
 			self.controller.mutate(MUTATION_RATE,MUT_SIGMA, self.angle)
 	
 	def setMorph(self,val1, val2, val3):

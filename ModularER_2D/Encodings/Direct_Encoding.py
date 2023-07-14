@@ -110,7 +110,7 @@ class DirectEncoding(enc.Encoding):
 				moduleController =  m_controller.Controller()
 												#module, index,parent,moduleRef, moduleController,parentConnectionSite
 				self.tree.index = node.addChild(copy.deepcopy(newModule),self.tree.index,node.index,type, moduleController,con)
-		node.module_.mutate(morphMutationRate,mutationRate,sigma)
+		node.module_.mutate(morphMutationRate,sigma)
 		node.controller.mutate(mutationRate,sigma, node.module_.angle)
 	def reassignIndices(self):
 		index = 0
