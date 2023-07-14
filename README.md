@@ -1,6 +1,10 @@
 # gym_rem2D
 OpenAI gym environment for evolving morphologies of 2D virtual creatures. 
 
+This is a fork from the original version developed by Frank Veenstra. This version is intended to be used with py_asynch_ea (link)
+
+This version also include some cleaning.
+
 Note that at this stage the code still needs some cleaning. (You will also find some hardcoded hacks in there) It should be straightforward to install the requirements and run the Demo.
 
 Please don't hesitate to contact me if you'd like some explanation or have a suggestion. 
