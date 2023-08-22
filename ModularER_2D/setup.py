@@ -8,5 +8,6 @@ setup(name='Modular_robtics_2D',
       author="Frank Veenstra and Joergen Nordmoen",
       author_email="frankvee@uio.no",
       include_package_data=True,
-      install_requires=['gym>=0.17', 'pybullet>=2.5', 'numpy>=1.17'],
-      test_suite='tests')
+      install_requires=['gym>=0.18', 'numpy>=1.17'],
+      test_suite='tests',
+      py_modules=["Encodings","gym_rem","gym_rem2D"])
