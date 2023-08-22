@@ -48,12 +48,15 @@ class Controller:
 		self.minMax(angle)
 
 	def mutate(self, mutationrate,sigma, angle):
+		#print("before mut",self.amplitude,self.phase,self.frequency,self.offset)
 		if random.uniform(0.0,1.0) < mutationrate:
-			self.amplitude += random.gauss(self.amplitude,sigma)
+			self.amplitude += random.gauss(0,sigma)
 		if random.uniform(0.0,1.0) < mutationrate:
-			self.phase += random.gauss(self.phase,sigma)
+			self.phase += random.gauss(0,sigma)
 		if random.uniform(0.0,1.0) < mutationrate:
-			self.frequency += random.gauss(self.frequency,sigma*0.1)
+			self.frequency += random.gauss(0,sigma*0.1)
 		if random.uniform(0.0,1.0) < mutationrate:
-			self.offset += random.gauss(self.offset,sigma)
+			self.offset += random.gauss(0,sigma)
+		#print("after mut",self.amplitude,self.phase,self.frequency,self.offset)
 		self.minMax(angle)
+		#print("after minMax",self.amplitude,self.phase,self.frequency,self.offset)		
