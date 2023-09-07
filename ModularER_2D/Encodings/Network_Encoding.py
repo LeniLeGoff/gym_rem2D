@@ -119,7 +119,7 @@ class NN_enc(enc.Encoding):
 				#theta = (output[4]*3)-1 
 				#connectedModule.theta = theta
 				controller = copy.deepcopy(self.moduleList[connectedMNr].controller)
-				controller.setControl(output[5],output[6],output[7],output[8], self.moduleList[connectedMNr].angle)
+				#controller.setControl(output[5],output[6],output[7],output[8], self.moduleList[connectedMNr].angle)
 				connectedModule.controller = controller
 				#connectedModule.module.controller.setControl(output[5],output[6],output[7],output[8])
 				# make sure connection is not available anymore
