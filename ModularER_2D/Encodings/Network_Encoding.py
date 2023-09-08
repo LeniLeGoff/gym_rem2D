@@ -102,9 +102,9 @@ class NN_enc(enc.Encoding):
 			if output[0] > 0.5:
 				newCon.append(con)
 				if (output[1] < -1.):
-					output[1] = -1.;
+					output[1] = -1.
 				elif (output[1] > 1.):
-					output[1] = 1.;
+					output[1] = 1.
 				if (len(self.moduleList)< 1 or len(self.moduleList)> 2000):
 					raise("Module list size was ", len(self.moduleList), " which should never occur")
 				connectedMNr = int(((output[1]*0.5)+0.5)*float(len(self.moduleList)-1)) # output 0,1,2
@@ -116,12 +116,9 @@ class NN_enc(enc.Encoding):
 					connectedMNr = 0
 				connectedModule = C_Module(index, self.moduleList[connectedMNr],connectedMNr)
 				connectedModule.module.setMorph(output[2],output[3],output[4])
-				#theta = (output[4]*3)-1 
-				#connectedModule.theta = theta
 				controller = copy.deepcopy(self.moduleList[connectedMNr].controller)
-				#controller.setControl(output[5],output[6],output[7],output[8], self.moduleList[connectedMNr].angle)
+				controller.setControl(output[5],output[6],output[7],output[8], self.moduleList[connectedMNr].angle)
 				connectedModule.controller = controller
-				#connectedModule.module.controller.setControl(output[5],output[6],output[7],output[8])
 				# make sure connection is not available anymore
 				connectedModule.parent = par_symb.index
 				connectedModule.parentConnectionSite = con

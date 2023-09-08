@@ -53,7 +53,7 @@ class Controller:
 		if random.uniform(0.0,1.0) <= mutationrate:
 			self.phase += random.gauss(0,sigma)
 		if random.uniform(0.0,1.0) <= mutationrate:
-			self.frequency += random.gauss(0,sigma)
+			self.frequency += random.gauss(0,sigma*0.1)
 		if random.uniform(0.0,1.0) <= mutationrate:
 			self.offset += random.gauss(0,sigma)
 		self.minMax(angle)
