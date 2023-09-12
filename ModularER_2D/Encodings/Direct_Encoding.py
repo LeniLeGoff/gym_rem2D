@@ -1,4 +1,4 @@
-from Encodings import abstract_encoding as enc
+from Encodings import Abstract_Encoding as enc
 import Tree
 from Controller import m_controller
 import copy
@@ -57,7 +57,7 @@ class DirectEncoding(enc.Encoding):
 			self.maxModules = 20
 		
 		for i in range(5):
-			self.mutate(0.5,0.5,0.5)
+			self.mutate(0.5,0.5)
 	def create(self, treedepth):
 		"""
 		This function is used by other encodings to create a tree structure out of the 
@@ -78,7 +78,7 @@ class DirectEncoding(enc.Encoding):
 		return count 
 
 	# recursive function
-	def mutateNode(self, node_o, morphMutationRate,mutationRate,sigma, depth):
+	def mutateNode(self, node_o, morphMutationRate,sigma, depth):
 		node = node_o
 		self.countModules()
 		# iterate through all connected modules
@@ -96,7 +96,7 @@ class DirectEncoding(enc.Encoding):
 			else:
 				# Cannot expand tree beyond tree depth limit
 				d = depth+1 # TODO
-				self.mutateNode(mod, morphMutationRate,mutationRate,sigma,d)
+				self.mutateNode(mod, morphMutationRate,sigma,d)
 		for con in node.availableConnections:
 			self.countModules()
 			if (self.n_modules < self.maxModules and depth < self.maxDepth and random.uniform(0,1)< morphMutationRate/float(self.n_modules)):
@@ -109,7 +109,7 @@ class DirectEncoding(enc.Encoding):
 												#module, index,parent,moduleRef, moduleController,parentConnectionSite
 				self.tree.index = node.addChild(copy.deepcopy(newModule),self.tree.index,node.index,type, moduleController,con)
 		node.module_.mutate(morphMutationRate,sigma)
-		node.controller.mutate(mutationRate,sigma, node.module_.angle)
+
 	def reassignIndices(self):
 		index = 0
 		self.index = self.reassignIndicesRec(self.tree.tree_nodes[0], index)
@@ -122,11 +122,12 @@ class DirectEncoding(enc.Encoding):
 			ch.parent = node.index
 		return index
 
-	def mutate(self, morphMutationRate, mutationRate,sigma):
+	def mutate(self, morphMutationRate,sigma):
 		# The mutation function is a recursive function which calls all the nodes in the tree 
-		self.mutateNode(self.tree.tree_nodes[0], morphMutationRate,mutationRate,sigma,0)
+		self.mutateNode(self.tree.tree_nodes[0], morphMutationRate,sigma,0)
 		self.countModules()
 		self.reassignIndices()
+
 	def crossover(self, other):
 		# one point crossover
 		point1 = random.randint(0,self.n_modules-1)

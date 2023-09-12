@@ -68,7 +68,7 @@ class Rule:
 			connectedModule.parentConnectionSite = con
 			self.module.children.append(connectedModule)
 
-	def mutate(self, MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA):
+	def mutate(self, MORPH_MUTATIONRATE,MUT_SIGMA):
 		self.moduleList[self.moduleRef].mutate(MORPH_MUTATIONRATE,MUT_SIGMA)
 		if (random.uniform(0.0,1.0) < MORPH_MUTATIONRATE):
 			# add child to rule
@@ -172,13 +172,13 @@ class LSystem(enc.Encoding):
 		self.recursiveNodeGen(-1,base,tree,0)
 		return tree
 	
-	def mutate(self, MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA):
+	def mutate(self, MORPH_MUTATIONRATE,MUT_SIGMA):
 		# mutate modules
 		for m in self.moduleList:
 			m.mutate(MORPH_MUTATIONRATE,MUT_SIGMA)
 		# mutate rules
 		for r in self.rules:
-			r.mutate(MORPH_MUTATIONRATE,MUTATION_RATE,MUT_SIGMA)
+			r.mutate(MORPH_MUTATIONRATE,MUT_SIGMA)
 	def iterate(self,currentSymbol,index, depth):
 		# depth is for debugging
 		depth+=1
