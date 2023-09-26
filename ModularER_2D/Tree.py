@@ -43,6 +43,12 @@ class Tree:
 	def distance(T,S):
 		return zss.simple_distance(T.nodes[0],S.nodes[0],Node.get_children,Node.get_label)
 
+	def norm():
+		empty = Tree(self.moduleList)
+		empty.nodes = [Node(0,0,0,0,0)]
+		return zss.simple_distance(self.nodes[0],empty.nodes[0],Node.get_children,Node.get_label)
+
+
 	def print_structure(self):
 		tree_str = str()
 		for node in self.nodes:

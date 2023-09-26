@@ -607,8 +607,8 @@ class Modular2D(gym.Env, EzPickle):
 	def step(self, action):
 		observation = 0
 		reward = 0
-		done = 0
-		info = 0
+		done = False
+		info = dict()
 
 		if self.wod:
 			self.wod.update()
