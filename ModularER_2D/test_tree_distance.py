@@ -28,9 +28,9 @@ if __name__ == '__main__':
     tree2 = random_tree()
     tree2.create_children_lists()
     print("structure of tree 1")
-    tree1.print_structure()
+    print(tree1.print_structure())
     print("structure of tree 2")
-    tree2.print_structure()
+    print(tree2.print_structure())
 
     print(tr.Tree.distance(tree1,tree2))
 

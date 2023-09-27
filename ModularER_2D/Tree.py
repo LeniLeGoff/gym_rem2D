@@ -17,17 +17,17 @@ def rect_module_norm(m):
 
 def module_dist(m1,m2):
 	if(m1 == None):
-		if(m2.type == "CIRCULAR"):
+		if(m2.type == "CIRCLE"):
 			return circular_module_norm(m2)
 		elif(m2.type == "SIMPLE"):
 			return rect_module_norm(m2)
 	elif(m2 == None):
-		if(m1.type == "CIRCULAR"):
+		if(m1.type == "CIRCLE"):
 			return circular_module_norm(m1)
 		elif(m1.type == "SIMPLE"):
 			return rect_module_norm(m1)
 	elif(m1.type == m2.type):
-		if(m1.type == "CIRCULAR"):
+		if(m1.type == "CIRCLE"):
 			return circular_module_dist(m1,m2)
 		elif(m1.type == "SIMPLE"):
 			return rect_module_dist(m1,m2)
@@ -68,9 +68,9 @@ class Tree:
 	def print_structure(self):
 		tree_str = str()
 		for node in self.nodes:
-			tree_str += str(node.index) + "\n"
+			tree_str += str(node.index) + "-" +  node.module_.type + "\n"
 			for c in node.children:
-				tree_str += "\t" + str(c.index) + "\n"
+				tree_str += "\t" + str(c.index) + "-" + node.module_.type + "\n"
 		return tree_str
 
 	def save(self,filename):
