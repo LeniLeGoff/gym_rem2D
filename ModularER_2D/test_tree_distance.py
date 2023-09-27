@@ -4,20 +4,20 @@ from Encodings import Network_Encoding as cppn
 from Encodings import LSystem as ls
 from Encodings import Direct_Encoding as de
 import Tree as tr
-from gym_rem2D.morph import SimpleModule, CircularModule2D
+from gym_rem2D.morph import circular_module, simple_module
 
 def get_module_list():
     module_list = []
     for i in range(4):
-        module_list.append(SimpleModule.Standard2D())
+        module_list.append(simple_module.Standard2D())
     for i in range(4):
-        module_list.append(CircularModule2D.Circular2D())
+        module_list.append(circular_module.Circular2D())
     return module_list
 
 def random_tree():
     '''Create random trees from cppn encoding'''
     moduleList = get_module_list()
-    genome = ls.NN_enc(moduleList,"CPPN")
+    genome = cppn.NN_enc(moduleList)
     tree_depth = 8
     return genome.create(tree_depth)
 

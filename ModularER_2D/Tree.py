@@ -8,9 +8,25 @@ def circular_module_dist(m1,m2):
 def rect_module_dist(m1,m2):
 	return (abs(m1.width - m2.width) + abs(m1.height - m2.height) + abs(m1.angle - m2.angle)/math.pi)/3.
 
+def circular_module_norm(m):
+	return (m.radius + m.angle/math.pi)/2.
+
+def rect_module_norm(m):
+	return (m.width + m.height + m.angle/math.pi)/3.
+
 
 def module_dist(m1,m2):
-	if(m1.type == m2.type):
+	if(m1 == None):
+		if(m2.type == "CIRCULAR"):
+			return circular_module_norm(m2)
+		elif(m2.type == "SIMPLE"):
+			return rect_module_norm(m2)
+	elif(m2 == None):
+		if(m1.type == "CIRCULAR"):
+			return circular_module_norm(m1)
+		elif(m1.type == "SIMPLE"):
+			return rect_module_norm(m1)
+	elif(m1.type == m2.type):
 		if(m1.type == "CIRCULAR"):
 			return circular_module_dist(m1,m2)
 		elif(m1.type == "SIMPLE"):
@@ -41,9 +57,9 @@ class Tree:
 
 	@staticmethod
 	def distance(T,S):
-		return zss.simple_distance(T.nodes[0],S.nodes[0],Node.get_children,Node.get_label)
+		return zss.simple_distance(T.nodes[0],S.nodes[0],Node.get_children,Node.get_label,module_dist)
 
-	def norm():
+	def norm(self):
 		empty = Tree(self.moduleList)
 		empty.nodes = [Node(0,0,0,0,0)]
 		return zss.simple_distance(self.nodes[0],empty.nodes[0],Node.get_children,Node.get_label)
@@ -85,7 +101,7 @@ class Node:
 		
 	@staticmethod
 	def get_label(node):
-		return "l"
+		return node.module_
 
 # Could be used later when using weighted edges
 class Edge:
