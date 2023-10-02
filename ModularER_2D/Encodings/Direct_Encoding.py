@@ -12,8 +12,8 @@ class DirectTree(Tree.Tree):
 		type = 0
 		control = m_controller.Controller() 
 		self.index = 0 # keeps track of unique ID of nodes
-		self.tree_nodes = []
-		self.tree_nodes.append(DirectNode(self.index,parent,type, None,control,copy.deepcopy(module_list[0])))
+		#self.tree_nodes = []
+		self.nodes.append(DirectNode(self.index,parent,type, None,control,copy.deepcopy(module_list[0])))
 	
 	def nodeGenerator(self,node,nodelist):
 		nodelist.append(node)
@@ -22,7 +22,7 @@ class DirectTree(Tree.Tree):
 		return nodelist
 	def getNodes(self):
 		nodelist = []
-		self.nodeGenerator(self.tree_nodes[0],nodelist)
+		self.nodeGenerator(self.nodes[0],nodelist)
 		self.nodes = nodelist
 		return super().getNodes()
 
@@ -70,7 +70,7 @@ class DirectEncoding(enc.Encoding):
 			node.controller.i_state = 0
 		return self.tree
 	def countModules(self):
-		self.n_modules = self.countModulesRec(self.tree.tree_nodes[0],0)
+		self.n_modules = self.countModulesRec(self.tree.nodes[0],0)
 	def countModulesRec(self, node, count):
 		count+=1
 		for mod in node.children:
@@ -112,7 +112,7 @@ class DirectEncoding(enc.Encoding):
 
 	def reassignIndices(self):
 		index = 0
-		self.index = self.reassignIndicesRec(self.tree.tree_nodes[0], index)
+		self.index = self.reassignIndicesRec(self.tree.nodes[0], index)
 
 	def reassignIndicesRec(self, node, index):
 		node.index = index
@@ -124,7 +124,7 @@ class DirectEncoding(enc.Encoding):
 
 	def mutate(self, morphMutationRate,sigma):
 		# The mutation function is a recursive function which calls all the nodes in the tree 
-		self.mutateNode(self.tree.tree_nodes[0], morphMutationRate,sigma,0)
+		self.mutateNode(self.tree.nodes[0], morphMutationRate,sigma,0)
 		self.countModules()
 		self.reassignIndices()
 
@@ -133,9 +133,9 @@ class DirectEncoding(enc.Encoding):
 		point1 = random.randint(0,self.n_modules-1)
 		point2 = random.randint(0,other.n_modules-1)
 		# points refer to indices
-		for i,node in enumerate(self.tree.tree_nodes):
+		for i,node in enumerate(self.tree.nodes):
 			if node.index == point1:
-				for target_node in other.tree.tree_nodes:
+				for target_node in other.tree.nodes:
 					if target_node.index == point2:
-						self.tree.tree_nodes[nodes] = copy.deepcopy(target_node)
+						self.tree.nodes[nodes] = copy.deepcopy(target_node)
 		self.reassignIndices()
